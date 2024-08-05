@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+    <div th:replace="~{nav.html::navbar}"> </div>
+    <form method="post" action="/updateProc">
+        <div class="detail" >
+            <h4>상세페이지</h4>
+            <img src="https://placehold.co/300">
+            상품명:<input type="text" name="title" th:value="${item.title}"/>
+            가격:<input type="text" name="price" th:value="${item.price }"/>
+            <input type="hidden" name="id" th:value="${item.id}"/>
+            <button type="submit">수정완료</button>
+        </div>
+    </form>
+
+
+</body>
+</html>

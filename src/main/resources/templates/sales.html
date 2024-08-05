@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{nav.html::navbar}"> </div>
+
+<div class = "card" th:each="i: ${orderList}"> <!--타입리프 반복문 리스트사이즈만큼 돌아줌-->
+    <p th:text="${'상품명: '+i.getTitle()}"></p>
+    <p th:text="${'상품가격: '+i.getPrice()}"></p>
+    <p th:text="${'주문수량: '+i.getCount()}"></p>
+    <p th:text="${'주문자: '+i.getUsername()}"></p>
+</div>
+
+
+</body>
+</html>

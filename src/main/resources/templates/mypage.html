@@ -1,0 +1,24 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{nav.html::navbar}"> </div>
+<h4>마이페이지</h4>
+
+    <div sec:authorize="isAuthenticated()"> <!-- 로그인한 사람만 보여주세요 -->
+        로그인정보: <span sec:authentication="principal"></span><br> <!-- 로그인 총정보 -->
+        유저 ID: <span sec:authentication="principal.username"></span><br> <!--유저 아이디 -->
+        유저 권한: <span sec:authentication="principal.authorities"></span><br> <!-- 유저 권한 -->
+    </div>
+    <span sec:authorize="hasAuthority('일반유저')">특정권한이 있으면 보여주쇼</span>
+
+
+</body>
+</html>

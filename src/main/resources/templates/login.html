@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{nav.html::navbar}"> </div>
+<h4>로그인하세요</h4>
+
+<div th:if="${param.error}"> <!--주소창에 error이라는 변수가있으면-->
+    <h4>아이디나 비밀번호 틀림</h4>
+</div>
+
+<form action="/login" method="POST" >
+    ID: <input type="text" name="username"/><br>
+    PASSWORD: <input type="password" name="password"/><br>
+    <button type="submit">전송</button>
+</form>
+
+<!-- JWT AJAX전송 -->
+<form>
+    ID: <input type="text" id="username"/><br>
+    PASSWORD: <input type="password" id="password" /><br>
+</form>
+<button onclick="loginJWT()">로그인</button>
+
+<script>
+    function loginJWT(){
+      fetch('/login/jwt', {
+        method : 'POST',
+        headers : {'Content-Type': 'application/json'},
+        body : JSON.stringify({
+          username : document.querySelector('#username').value,
+          password : document.querySelector('#password').value
+        })
+      }).then(r => r.text()).then((r)=>{ console.log(r) })
+    }
+</script>
+    <button onclick="getMyPage()">JWT 마이페이지 주세요 </button>
+<script>
+    function getMyPage(){
+        fetch('/my-page/jwt')
+        .then((r)=> r.text())
+        .then((r)=> {console.log(r)
+        })
+    }
+
+</script>
+
+</body>
+</html>

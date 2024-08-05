@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{nav.html::navbar}"> </div>
+
+<div class = "card" th:each="i: ${items}"> <!--타입리프 반복문 리스트사이즈만큼 돌아줌-->
+    <img src="https://placehold.co/300">
+    <div>
+        <a th:href="@{/detail/{id}(id=${i.id},comment = 1)}"><h4 th:text="${'상품명: '+i.title}"></h4></a> <!--타임리프 문법 덮어쓰기-->
+        <p th:text="${'가격: '+i.price}"></p>
+        <p th:text="${'작성자: ' +i.username}"></p>
+        <span th:onclick="fetch('/delete?id=[[${i.id}]]',{method : 'DELETE'})
+            .than(r => r.text())
+            .then(() => {
+                location.reload();
+            })
+            ">삭제</span>
+    </div>
+</div>
+
+</body>
+</html>

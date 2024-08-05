@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <link href="/main.css" rel="stylesheet">
+</head>
+<body>
+<div th:replace="~{nav.html::navbar}"> </div>
+
+    <form method="post" action="/update">
+        <div class="detail">
+            <h4>상세페이지</h4>
+            <img src="https://placehold.co/300">
+            <h4 th:text = "${result.title}"></h4>
+            <p th:text="${result.price + '원'   }"></p>
+            <input type="hidden" name="id" th:value="${result.id}"/>
+            <button type="submit">수정</button>
+        </div>
+    </form>
+
+    <form method="POST" action="/sales">
+        <div class="detail">
+            <input type="text" name="count" style="display:inline" placeholder="수량">
+            <input type="hidden" name="itemId" th:value="${result.id}">
+            <button type="submit">구매하기</button>
+        </div>
+    </form>
+
+
+    <form method="post" action="/commentWrite">
+        <div class="detail">
+            <HR><BR>
+            <textarea name="content" PLACEHOLDER="댓글" style="width:500px; height:50px; resize:none;" ></textarea><BR>
+            <input type="hidden" name="parentId" th:value="${result.id}"/>
+            <input type="hidden" name="page" th:value="${page}">
+            <button type="submit">작성완료</button>
+        </div>
+    </form>
+
+    <div class="detail">
+        <HR><BR>
+        <div th:each="i:${commentList}" style="background-color:lightgrey;">
+            <p th:text="${'ID: '+i.username}"></p>
+            <p th:text="${'댓글: '+i.content}"></p>
+        </div>
+        <br>
+    </div>
+    <div class="detail">
+        <span  th:each="pageNum : ${#numbers.sequence(1, totalPage)}" >
+            <a th:href="@{/detail/{id}(id=${result.id},comment=${pageNum})}" th:text="${'['+pageNum+']'}"></a>
+        </span>
+    </div>
+
+
+</div>
+</body>
+</html>

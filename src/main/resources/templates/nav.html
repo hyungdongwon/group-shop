@@ -1,0 +1,20 @@
+<div class="nav" th:fragment="navbar" xmlns:sec="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
+    <form id="logout" action="/logout" method="post">
+    </form>
+
+    <a class="logo">SpringMall</a>
+    <a href="/list/page/1">List</a>
+    <a href="/write">Write</a>
+
+    <div sec:authorize="isAnonymous()"> <!-- 로그인 안한사람들만 보이게 -->
+        <a href="/login">login</a>
+    </div>
+
+    <div sec:authorize="isAuthenticated()"> <!-- 로그인 한사람들만 보이게 -->
+        <a href="#" onclick="document.getElementById('logout').submit();">Logout</a>
+        <span sec:authentication="principal.username"></span>
+        <a href="/order/all">주문조회</a>
+    </div >
+
+</div>
